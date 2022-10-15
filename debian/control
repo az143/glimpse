@@ -3,7 +3,7 @@ Section: text
 Priority: optional
 Maintainer: Alexander Zangerl <az@debian.org>
 Build-Depends: flex, libfl-dev, debhelper-compat (= 12)
-Standards-Version: 4.3.0
+Standards-Version: 4.6.1
 Vcs-Git: https://github.com/az143/glimpse.git -b master
 Vcs-Browser: https://github.com/az143/glimpse
 

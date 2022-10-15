@@ -2,6 +2,7 @@ glimpse (4.18.7-7) UNRELEASED; urgency=medium
 
   * Set debhelper-compat version in Build-Depends.
   * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository-Browse.
+  * Update standards version to 4.6.1, no changes needed.
 
  -- Debian Janitor <janitor@jelmer.uk>  Sat, 15 Oct 2022 02:33:26 -0000
 
