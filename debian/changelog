@@ -1,3 +1,9 @@
+glimpse (4.18.7-7) unstable; urgency=medium
+
+  * build adjustments (closes: #1044190)
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 02 Oct 2023 11:01:26 +0200
+
 glimpse (4.18.7-6) unstable; urgency=medium
 
   * glimpse now provides agrep.

@@ -1,0 +1,3 @@
+# configure is shipped but autoconf-regen'd,
+# same for libtemplate/include/autoconf.h 
+extend-diff-ignore = "^(configure|libtemplate/include/autoconf.h)$"
