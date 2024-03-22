@@ -1,0 +1,860 @@
+--- a/agrep/agrep.c
++++ b/agrep/agrep.c
+@@ -8,6 +8,8 @@
+ #include "checkfile.h"
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++
+ #define PRINT(s)
+ 
+ extern char **environ;
+@@ -3453,7 +3455,7 @@ char **file_list;
+ 			}
+ 			else exit(2);  
+ 		}
+-		if(PAT_FILE || PAT_BUFFER) mgrep(fd, AParse);
++		if(PAT_FILE || PAT_BUFFER) mgrep(fd);
+ 		else {
+ 			if(SGREP) ret = sgrep(OldPattern, strlen(OldPattern), fd, D, 0);
+ 			else      ret = bitap(old_D_pat, Pattern, fd, M, D);
+@@ -3523,7 +3525,7 @@ char **file_list;
+ 				else if (!glimpse_call) fprintf(stderr, "%s: can't open file for reading: %s\n",Progname, file_list[i]);
+ 			} 
+ 			else { 
+-				if(PAT_FILE || PAT_BUFFER) mgrep(fd, AParse);
++				if(PAT_FILE || PAT_BUFFER) mgrep(fd);
+ 				else {
+ 					if(SGREP) ret = sgrep(OldPattern, strlen(OldPattern), fd, D, i);
+ 					else      ret = bitap(old_D_pat, Pattern, fd, M, D);
+@@ -3733,7 +3735,7 @@ char **file_list;
+ 					if (!SetCurrentFileTime) if (PRINTFILETIME) CurrentFileTime = aget_file_time(NULL, file_list[i]);
+ 					NEW_FILE = ON;
+ 					if ((fd = my_open(Textfiles[i], O_RDONLY)) > 0) {
+-						if(PAT_FILE || PAT_BUFFER) mgrep(fd, AParse);
++						if(PAT_FILE || PAT_BUFFER) mgrep(fd);
+ 						else {
+ 							if(SGREP) ret = sgrep(OldPattern,strlen(OldPattern),fd,D, i);
+ 							else ret = bitap(old_D_pat,Pattern,fd,M,D);
+@@ -3785,7 +3787,7 @@ char **file_list;
+ 					if (!SetCurrentFileTime) if (PRINTFILETIME) CurrentFileTime = aget_file_time(NULL, file_list[i]);
+ 					NEW_FILE = ON;
+ 					if ((fd = my_open(Textfiles[i], O_RDONLY)) > 0) {
+-						if(PAT_FILE || PAT_BUFFER) mgrep(fd, AParse);
++						if(PAT_FILE || PAT_BUFFER) mgrep(fd);
+ 						else {
+ 							if(SGREP) ret = sgrep(OldPattern,strlen(OldPattern),fd,D, i);
+ 							else ret = bitap(old_D_pat,Pattern,fd,M,D);
+--- a/agrep/asearch.c
++++ b/agrep/asearch.c
+@@ -2,6 +2,8 @@
+ #include "agrep.h"
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++
+ extern unsigned Init1, Init[], Mask[], endposition, D_endpos, AND, NO_ERR_MASK;
+ extern int DELIMITER, FILENAMEONLY, INVERSE, PRINTFILETIME;
+ extern CHAR CurrentFileName[];
+--- a/agrep/asearch1.c
++++ b/agrep/asearch1.c
+@@ -2,6 +2,8 @@
+ #include "agrep.h"
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++
+ extern unsigned Init1, Init[], Mask[], endposition, D_endpos;
+ extern unsigned NO_ERR_MASK;
+ extern int TRUNCATE, DELIMITER, AND, I, S, DD, INVERSE, FILENAMEONLY, PRINTFILETIME ;
+--- a/agrep/bitap.c
++++ b/agrep/bitap.c
+@@ -16,6 +16,8 @@
+ #include "memory.h"
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++
+ extern int CurrentByteOffset;
+ extern unsigned Init1, D_endpos, endposition, Init[], Mask[], Bit[];
+ extern int LIMITOUTPUT, LIMITPERFILE;
+--- a/agrep/checkfile.c
++++ b/agrep/checkfile.c
+@@ -13,6 +13,8 @@
+ #include <errno.h>
+ #include "checkfile.h"
+ 
++#include "../missing_prototypes.h"
++
+ #ifndef S_ISREG
+ #define S_ISREG(mode) (0100000&(mode))
+ #endif
+--- a/agrep/main.c
++++ b/agrep/main.c
+@@ -14,6 +14,8 @@ extern  int EXITONERROR;
+ 
+ #include "dummysyscalls.c"
+ 
++#include "../missing_prototypes.h"
++
+ int
+ main(argc, argv)
+ int argc;
+--- a/compress/cast.c
++++ b/compress/cast.c
+@@ -17,6 +17,9 @@ struct utimbuf {
+ #else
+ #include <utime.h>
+ #endif
++
++#include "../missing_prototypes.h"
++
+ #define ALNUMWORDS 1
+ 
+ #define MYEOF	0xffffffff
+--- a/compress/defs.h
++++ b/compress/defs.h
+@@ -10,7 +10,7 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <ctype.h>
+-#include "glimpse.h"
++#include "../index/glimpse.h"
+ 
+ #undef COMP_SUFFIX
+ #undef DEF_STRING_FILE
+--- a/compress/main_cast.c
++++ b/compress/main_cast.c
+@@ -9,6 +9,8 @@
+ #include <locale.h>
+ #endif
+ 
++#include "../missing_prototypes.h"
++
+ #include "dummysyscalls.c"
+ 
+ extern char **environ;
+--- a/compress/main_uncast.c
++++ b/compress/main_uncast.c
+@@ -9,6 +9,8 @@
+ #include <locale.h>
+ #endif
+ 
++#include "../missing_prototypes.h"
++
+ #include "dummysyscalls.c"
+ 
+ extern char **environ;
+--- a/compress/quick.c
++++ b/compress/quick.c
+@@ -28,6 +28,8 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ 
++#include "../missing_prototypes.h"
++
+ /*
+  * The quick-functions can be called multiple number of times --
+  * they however open the hash, string and freq files only once.
+@@ -46,7 +48,7 @@ quick_tcompress(freq_file, hash_file, pa
+ 	CHAR	*pattern;
+ 	int	len;
+ 	void	*newpattern;	/* can be FILE* or CHAR* */
+-	int	*maxnewlen;
++	int	maxnewlen;
+ 	int	flags;
+ {
+ 	static FILE	*hashfp = NULL, *hashindexfp = NULL;
+@@ -147,7 +149,7 @@ quick_tuncompress(freq_file, string_file
+ 	CHAR	*pattern;
+ 	int	len;
+ 	void	*newpattern;	/* can be FILE* or CHAR* */
+-	int	*maxnewlen;
++	int	maxnewlen;
+ 	int	flags;
+ {
+ 	static FILE	*stringfp = NULL, *stringindexfp = NULL;
+--- a/compress/tbuild.c
++++ b/compress/tbuild.c
+@@ -16,6 +16,8 @@ int freq_strings_num[MAX_WORD_LEN+2];
+ extern int MAX_WORDS;
+ extern int RESERVED_CHARS;
+ 
++#include "../missing_prototypes.h"
++
+ /*
+  * Computes the dictionary for the compression routines: they need two things:
+  * 1. A hash-table which maps words to word numbers.
+--- a/compress/tsimpletest.c
++++ b/compress/tsimpletest.c
+@@ -7,6 +7,10 @@
+ #define u_sample_size   1024    /* the number of bytes sampled to determine
+                                    whether a file is uuencoded */
+ 
++#include <ctype.h>
++#include "../missing_prototypes.h"
++
++
+ 
+ #if	0
+ /* ---------------------------------------------------------------------
+--- a/compress/uncast.c
++++ b/compress/uncast.c
+@@ -17,6 +17,9 @@ struct utimbuf {
+ #else
+ #include <utime.h>
+ #endif
++
++#include "../missing_prototypes.h"
++
+ #define MYEOF	0xffffffff
+ 
+ extern int RESERVED_CHARS;
+--- a/glimpse/main.c
++++ b/glimpse/main.c
+@@ -15,6 +15,8 @@
+ #include <locale.h>	/* support for 8bit character set */
+ #endif
+ 
++#include "../missing_prototypes.h"
++
+ #define CLIENTSERVER	1
+ #define USE_MSGHDR	0
+ #define USE_UNIXDOMAIN	0
+@@ -1372,7 +1374,7 @@ int newsockfd;
+ 	}\
+ 	for (k=0; k<num_terminals;k++)\
+ 		free(terminals[k].data.leaf.value);\
+-	if (ComplexBoolean) destroy_tree(&GParse);\
++	if (ComplexBoolean) destroy_tree(GParse);\
+ 	for (k=0; k<GNumfiles; k++) {\
+ 		my_free(GTextfiles[k], 0);\
+ 		GTextfiles[k] = NULL;\
+--- a/index/dir.c
++++ b/index/dir.c
+@@ -44,6 +44,9 @@
+ #endif
+ */
+ 
++#include "../missing_prototypes.h"
++int fsize_directory(char *, char **, int *, int, char **, int*, int);
++
+ extern FILE *TIMEFILE;
+ #if	BG_DEBUG
+ extern FILE *LOGFILE;
+@@ -150,7 +153,7 @@ int toplevel;
+ 	 */
+ 
+ 	/* Check if cache set in glimpse.c is correct */
+-	if (!IndexableFile && !DeleteFromIndex && FastIndex && ((fileindex = get_filename_index(name, name_list, file_num)) != -1) && (disable_list[block2index(fileindex)] & mask_int[fileindex % (8*sizeof(int))])) {
++	if (!IndexableFile && !DeleteFromIndex && FastIndex && ((fileindex = get_filename_index(name)) != -1) && (disable_list[block2index(fileindex)] & mask_int[fileindex % (8*sizeof(int))])) {
+ 	    if (num_pat <= 0) {
+ 		if (num_inc <= 0) return 0;
+ 		else if (incstbuf.st_ctime <= istbuf.st_ctime) return 0;
+@@ -166,7 +169,7 @@ int toplevel;
+ #define PROCESS_EXIT \
+ {\
+ 	if (AddToIndex || FastIndex || DeleteFromIndex) {\
+-		if ((fileindex = get_filename_index(name, name_list, file_num)) != -1) \
++		if ((fileindex = get_filename_index(name)) != -1) \
+ 			remove_filename(fileindex, new_partition);\
+ 	}\
+ }
+@@ -295,7 +298,7 @@ int toplevel;
+ 	}
+ 	else /* if (!IndexableFile) ---> not correct! must process include/exclude with -I too */ {
+ 		/* Put exclude include processing here... stat all the time: that is faster than former! */
+-		if (FastIndex && ((fileindex = get_filename_index(name, name_list, file_num)) != -1)) {
++		if (FastIndex && ((fileindex = get_filename_index(name)) != -1)) {
+ 			/* Don't process exclude/include if the file `name' is older then the index AND the exclude/include file is older then the index */
+ 			if (IncludeHigherPriority) {
+ 				if (!((stbuf.st_ctime <= istbuf.st_ctime) && (incstbuf.st_ctime <= istbuf.st_ctime)))
+@@ -337,7 +340,7 @@ index_everything:
+ 		return 0;
+ 	    }
+ 	    if (DeleteFromIndex) {
+-		if ((fileindex = get_filename_index(name, name_list, file_num)) != -1) {
++         if ((fileindex = get_filename_index(name)) != -1) {
+ 		    remove_filename(fileindex, new_partition);
+ 		}
+ 		/* else doesn't exist in index, so doesn't matter */
+@@ -367,7 +370,7 @@ index_everything:
+ #endif
+ 
+ 	    if (AddToIndex || FastIndex) {
+-		if ((fileindex = get_filename_index(name, name_list, file_num)) != -1) {
++		if ((fileindex = get_filename_index(name)) != -1) {
+ 		    LIST_ADD(size_list, fileindex, stbuf.st_size, int);
+ 		    if (FastIndex && (stbuf.st_ctime <= istbuf.st_ctime))
+ 			disable_list[block2index(fileindex)] |= mask_int[fileindex % (8*sizeof(int))];
+--- a/index/glimpse.c
++++ b/index/glimpse.c
+@@ -8,6 +8,11 @@
+ #endif
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++int usage(int);
++int cleanup();
++
++
+ extern char **environ;
+ extern int errno;
+ extern FILE *TIMEFILE;	/* file descriptor for sorting .glimpse_filenames by time */
+@@ -190,7 +195,7 @@ char **argv;
+     memset(size_list, '\0', sizeof(int *) * MAXNUM_INDIRECT);	/* free it once partition successfully calculates p_size_list */
+     memset(name_list, '\0', sizeof(char **) * MAXNUM_INDIRECT);
+     memset(p_size_list, '\0', sizeof(int) * MAX_PARTITION);
+-    build_filename_hashtable((char *)NULL, 0);
++    build_filename_hashtable((char ***)NULL, 0);
+ 
+     /*
+      * Process options.
+--- a/libtemplate/util/log.c
++++ b/libtemplate/util/log.c
+@@ -20,6 +20,7 @@ static char rcsid[] = "$Id: log.c,v 1.5
+ #include <time.h>
+ #include <sys/file.h>
+ #include <stdarg.h>
++#include <stdlib.h>
+ #include "util.h"
+ 
+ /* Local functions */
+--- a/libtemplate/util/system.c
++++ b/libtemplate/util/system.c
+@@ -24,6 +24,8 @@ static char rcsid[] = "$Id: system.c,v 1
+ #include <sys/time.h>
+ #include <sys/resource.h>
+ #endif
++#include <stdlib.h>
++#include <string.h>
+ 
+ static void redirect_stdout();
+ 
+--- a/main.c
++++ b/main.c
+@@ -15,6 +15,10 @@
+ #include <locale.h>	/* support for 8bit character set */
+ #endif
+ 
++#include "missing_prototypes.h"
++int usageS();
++int usage();
++
+ #define CLIENTSERVER	1
+ #define USE_MSGHDR	0
+ #define USE_UNIXDOMAIN	0
+@@ -1372,7 +1376,7 @@ int newsockfd;
+ 	}\
+ 	for (k=0; k<num_terminals;k++)\
+ 		free(terminals[k].data.leaf.value);\
+-	if (ComplexBoolean) destroy_tree(&GParse);\
++	if (ComplexBoolean) destroy_tree(GParse);\
+ 	for (k=0; k<GNumfiles; k++) {\
+ 		my_free(GTextfiles[k], 0);\
+ 		GTextfiles[k] = NULL;\
+--- a/agrep/dummysyscalls.c
++++ b/agrep/dummysyscalls.c
+@@ -1,6 +1,9 @@
+ 
+ /* These functions have been added here so that agrep/cast binaries will work independent of glimpse */
+ 
++#include <sys/stat.h>
++
++
+ int
+ my_open(name, flags, mode)
+ 	char	*name;
+--- a/agrep/newmgrep.c
++++ b/agrep/newmgrep.c
+@@ -12,6 +12,10 @@
+ #include "agrep.h"
+ #include <sys/time.h>
+ 
++#include "../missing_prototypes.h"
++int monkey1(unsigned char *, int, int);
++int m_short(unsigned char *, int, int);
++
+ 
+ #define ddebug
+ #define uchar unsigned char
+@@ -426,8 +430,7 @@ int	length;
+ #endif	/*DOTCOMPRESSED*/
+ 
+ int
+-mgrep(fd)
+-int fd;
++mgrep(int fd)
+ { 
+ 	register char r_newline = '\n';
+ 	unsigned char *text;
+--- a/agrep/preprocess.c
++++ b/agrep/preprocess.c
+@@ -16,6 +16,8 @@
+ #include "agrep.h"
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++
+ extern int PAT_FILE, PAT_BUFFER;
+ extern ParseTree *AParse;
+ extern int WHOLELINE, REGEX, FASTREGEX, RE_ERR, DELIMITER, TAIL, WORDBOUND;
+--- a/agrep/re.h
++++ b/agrep/re.h
+@@ -1,4 +1,9 @@
+ /* Copyright (c) 1994 Sun Wu, Udi Manber, Burra Gopal.  All Rights Reserved. */
++
++#include <stdlib.h>
++#include <string.h>
++
++
+ /*************************************************************
+  *							     *
+  * 	Macros defining special characters.		     *
+--- a/agrep/recursive.c
++++ b/agrep/recursive.c
+@@ -38,6 +38,11 @@
+ #define DIRSIZE 14
+ #define max_list 10
+ 
++#include <string.h>
++#include <stdlib.h>
++#include "../missing_prototypes.h"
++
++
+ #ifndef S_ISREG
+ #define S_ISREG(mode) (0100000&(mode))
+ #endif
+--- a/agrep/sgrep.c
++++ b/agrep/sgrep.c
+@@ -3,6 +3,19 @@
+ #include <ctype.h>
+ #include "agrep.h"
+ #include <errno.h>
++
++#include "../missing_prototypes.h"
++int monkey(unsigned char *,int,unsigned char *, unsigned char *);
++int monkey4(unsigned char *, int, unsigned char *, unsigned char *, int);
++int a_monkey(unsigned char *, int, unsigned char *, unsigned char *, int);
++int bm(unsigned char *,int,unsigned char*, unsigned char *,unsigned char *, int);
++int agrep(unsigned char *, int, unsigned char *, unsigned char *, int,
++          unsigned char *, int);
++int s_output(unsigned char *, int *, unsigned char *, unsigned char *,
++             unsigned char **, unsigned char *, int, unsigned char *, int);
++int verify(int, int, int, unsigned char *, unsigned char *);
++int blog(int, int);
++
+ #undef	MAXSYM
+ #define MAXSYM  256
+ #define MAXMEMBER 8192
+@@ -291,7 +304,7 @@ int fd, in_m, D;
+ 			/* No harm in sending a few extra parameters even if they are unused: they are not accessed in monkey*()s */
+ 			if(D==0)  {
+ 				if(m > LONG_EXAC) {
+-					if (-1 == monkey(pat, m, text+start, text+end, oldpat, oldm)) {
++					if (-1 == monkey(pat, m, text+start, text+end)) {
+ 						free_buf(fd, text);
+ 						return -1;
+ 					}
+@@ -305,14 +318,14 @@ int fd, in_m, D;
+ 			}
+ 			else {
+ 				if(DNA) {
+-					if (-1 == monkey4( pat, m, text+start, text+end, D , oldpat, oldm )) {
++					if (-1 == monkey4( pat, m, text+start, text+end, D)) {
+ 						free_buf(fd, text);
+ 						return -1;
+ 					}
+ 				}
+ 				else {
+ 					if(m >= LONG_APPX) {
+-						if (-1 == a_monkey(pat, m, text+start, text+end, D, oldpat, oldm)) {
++						if (-1 == a_monkey(pat, m, text+start, text+end, D)) {
+ 							free_buf(fd, text);
+ 							return -1;
+ 						}
+@@ -403,7 +416,7 @@ int fd, in_m, D;
+ 			/* No harm in sending a few extra parameters even if they are unused: they are not accessed in monkey*()s */
+ 			if(D==0)  {
+ 				if(m > LONG_EXAC) {
+-					if (-1 == monkey(pat, m, text+start, text+end, oldpat, oldm)) {
++					if (-1 == monkey(pat, m, text+start, text+end)) {
+ 						free_buf(fd, text);
+ 						return -1;
+ 					}
+@@ -417,14 +430,14 @@ int fd, in_m, D;
+ 			}
+ 			else {
+ 				if(DNA) {
+-					if (-1 == monkey4( pat, m, text+start, text+end, D , oldpat, oldm )) {
++					if (-1 == monkey4( pat, m, text+start, text+end, D )) {
+ 						free_buf(fd, text);
+ 						return -1;
+ 					}
+ 				}
+ 				else {
+ 					if(m >= LONG_APPX) {
+-						if (-1 == a_monkey(pat, m, text+start, text+end, D, oldpat, oldm)) {
++						if (-1 == a_monkey(pat, m, text+start, text+end, D)) {
+ 							free_buf(fd, text);
+ 							return -1;
+ 						}
+@@ -546,7 +559,7 @@ int fd, in_m, D;
+ 			/* No harm in sending a few extra parameters even if they are unused: they are not accessed in monkey*()s */
+ 			if(D==0)  {
+ 				if(m > LONG_EXAC) {
+-					if (-1 == monkey(pat, m, text+start, text+end, oldpat, oldm)) {
++					if (-1 == monkey(pat, m, text+start, text+end)) {
+ 						free_buf(fd, text);
+ 						memcpy(text+end+1, tempbuf, m); /* restore */
+ 						free(tempbuf);
+@@ -564,7 +577,7 @@ int fd, in_m, D;
+ 			}
+ 			else {
+ 				if(DNA) {
+-					if (-1 == monkey4( pat, m, text+start, text+end, D , oldpat, oldm )) {
++					if (-1 == monkey4( pat, m, text+start, text+end, D )) {
+ 						free_buf(fd, text);
+ 						memcpy(text+end+1, tempbuf, m); /* restore */
+ 						free(tempbuf);
+@@ -573,7 +586,7 @@ int fd, in_m, D;
+ 				}
+ 				else {
+ 					if(m >= LONG_APPX) {
+-						if (-1 == a_monkey(pat, m, text+start, text+end, D, oldpat, oldm)) {
++						if (-1 == a_monkey(pat, m, text+start, text+end, D)) {
+ 							free_buf(fd, text);
+ 							memcpy(text+end+1, tempbuf, m); /* restore */
+ 							free(tempbuf);
+@@ -1515,9 +1528,9 @@ register m;
+ CHARTYPE SHIFT_2[MAX_SHIFT_2];
+ 
+ int
+-monkey( pat, m, text, textend  ) 
+-register int m  ; 
+-register CHARTYPE *text, *textend, *pat;
++monkey( pat, m, text, textend )
++   register int m ;
++   register CHARTYPE *text, *textend, *pat;
+ {
+ 	int PRINTED = 0;
+ 	register unsigned hash;
+@@ -1838,8 +1851,8 @@ register CHARTYPE *text, *textend, *pat;
+ 
+ /* a_monkey() the approximate monkey move */
+ int
+-a_monkey( pat, m, text, textend, D ) 
+-register int m, D ; 
++a_monkey( pat, m, text, textend, D)
++   register int m, D;
+ register CHARTYPE *text, *textend, *pat;
+ {
+ 	int PRINTED = 0;
+@@ -2244,8 +2257,8 @@ CHARTYPE *Pattern;
+ char *MEMBER_D = NULL;
+ 
+ int
+-monkey4( pat, m, text, textend, D  ) 
+-register int m, D ; 
++monkey4( pat, m, text, textend, D)
++   register int m, D;
+ register unsigned char *text, *pat, *textend;
+ {
+ 	int PRINTED = 0;
+--- a/get_filename.c
++++ b/get_filename.c
+@@ -4,6 +4,9 @@
+ #include <errno.h>
+ #include "glimpse.h"
+ #include <fcntl.h>
++
++#include "missing_prototypes.h"
++
+ #define  CHAR unsigned char
+ 
+ /* ----------------------------------------------------------------------
+--- a/get_index.c
++++ b/get_index.c
+@@ -3,6 +3,8 @@
+ #include "defs.h"
+ #include <errno.h>
+ 
++#include "missing_prototypes.h"
++
+ #if	BG_DEBUG
+ extern	FILE	*debug;
+ #endif	/*BG_DEBUG*/
+--- a/glimpse/get_filename.c
++++ b/glimpse/get_filename.c
+@@ -4,6 +4,9 @@
+ #include <errno.h>
+ #include "glimpse.h"
+ #include <fcntl.h>
++
++#include "../missing_prototypes.h"
++
+ #define  CHAR unsigned char
+ 
+ /* ----------------------------------------------------------------------
+--- a/glimpse/get_index.c
++++ b/glimpse/get_index.c
+@@ -3,6 +3,8 @@
+ #include "defs.h"
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++
+ #if	BG_DEBUG
+ extern	FILE	*debug;
+ #endif	/*BG_DEBUG*/
+--- a/index/build_in.c
++++ b/index/build_in.c
+@@ -26,6 +26,10 @@
+ #include "glimpse.h"
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++int merge_in(FILE *, FILE *, FILE *);
++int init_hash_table();
++
+ #define debugt
+ #define BINARY 1
+ /* #define SW_DEBUG  the original sw output of index set */
+--- a/index/convert.c
++++ b/index/convert.c
+@@ -15,6 +15,8 @@
+ #endif
+ #include <errno.h>
+ 
++int usage();
++
+ 
+ #define IS_LITTLE_ENDIAN	1
+ #define IS_BIG_ENDIAN		0
+--- a/index/filetype.c
++++ b/index/filetype.c
+@@ -15,6 +15,8 @@
+ 
+ -----------------------------------------------------------------------------*/
+ #include "glimpse.h"
++#include "../missing_prototypes.h"
++
+ #define SAMPLE_SIZE  8192
+ #define EXTRACT_SAMPLE_SIZE (MAX_LINE_LEN*2)	/* must be lesser than above: used to get info to be stored ALONG with filename */	/* suggested fix: ldrolez@usa.net */
+ #define WORD_THRESHOLD  18  /* the ratio between number of characters and
+--- a/index/getword.c
++++ b/index/getword.c
+@@ -2,6 +2,8 @@
+ /* ./glimpse/index/getword.c */
+ #include "glimpse.h"
+ 
++#include "../missing_prototypes.h"
++
+ extern FILE *MESSAGEFILE;
+ extern int NextICurrentFileOffset, ICurrentFileOffset;
+ int StructuredIndex = 0;
+--- a/index/io.c
++++ b/index/io.c
+@@ -10,6 +10,7 @@ extern char INDEX_DIR[MAX_LINE_LEN];
+ extern int memory_usage;
+ 
+ #include "utils.c"
++#include "../missing_prototypes.h"
+ 
+ int	REAL_INDEX_BUF = DEF_REAL_INDEX_BUF,
+ 	MAX_ALL_INDEX = DEF_MAX_ALL_INDEX,
+--- a/index/lib.c
++++ b/index/lib.c
+@@ -2,6 +2,11 @@
+ /* ./glimpse/index/lib.c */
+ #include <stdio.h>
+ 
++#include <string.h>
++#include <stdlib.h>
++
++/* already in the libraries...and the configure setup is dud */
++#if 0
+ unsigned char *strdup(str)
+ unsigned char *str;
+ {
+@@ -20,3 +25,4 @@ unsigned char *str;
+ 	return(str1_bak);
+ }
+ 
++#endif
+--- a/index/partition.c
++++ b/index/partition.c
+@@ -5,6 +5,8 @@
+ #include <sys/time.h>
+ #include <errno.h>
+ 
++#include "../missing_prototypes.h"
++
+ extern int BigFilenameHashTable;
+ extern int DeleteFromIndex;
+ extern int FastIndex;
+--- a/index/simpletest.c
++++ b/index/simpletest.c
+@@ -2,6 +2,9 @@
+ /* simple tests which don't need to access indexing data structures */
+ #include <stdio.h>
+ #include "glimpse.h"
++
++#include "../missing_prototypes.h"
++
+ #define b_sample_size   2048    /* the number of bytes sampled to determine
+                                    whether a file is binary  */
+ #define u_sample_size   1024    /* the number of bytes sampled to determine
+--- /dev/null
++++ b/missing_prototypes.h
+@@ -0,0 +1,150 @@
++/*
++ * $Id$
++ *
++ * File:    missing_prototypes.h
++ * Date:    22 Mar 2024 15:25:50
++ * Author:    Alexander Zangerl <az@snafu.priv.at>
++ *
++ * Abstract:
++ *  bodgy fix for the oh-so-horrible lack of prototypes across
++ *  all of glimpse, agrep & co;
++ *
++ */
++
++#ifndef _MISSING_PROTOTYPES_H
++#define _MISSING_PROTOTYPES_H 1
++
++#include "compress/defs.h"
++
++int agrep_usage();
++int apply_filter(char *, char *);
++int asearch(CHAR [], int, register unsigned int);
++int asearch0(CHAR [],int, register unsigned);
++int asearch1(char [], int, register unsigned int);
++int asplit_terminal(int, int, char *, int *);
++int asplit_pattern(CHAR *, int, ParseTree [], int *, ParseTree **);
++int attr_free_table();
++int bitap(char [], char *, int, int, int);
++int build_filename_hashtable(char **[], int);
++int build_index();
++int build_partial_hash(hash_entry *[],FILE *, unsigned char *, int, unsigned char *, int, int, char []);
++int build_partial_string(char *[], FILE *, unsigned char *, int, unsigned char *, int, int, char []);
++int check_file(char *);
++int checksg(CHAR *, int, int);
++int compat();
++int compute_dictionary(int, int, int, char []);
++int convert2agrepregexp(char *, int);
++int decode12b(int);
++int decode16b(int);
++int decode24b(int);
++int decode8b(int);
++int destroy_filename_hashtable();
++int dump_small_hash(hash_entry *[], unsigned char *);
++int do_select(int, int);
++int encode12b(int);
++int encode16b(int);
++int encode24b(int);
++int encode32b(int);
++int encode8b(int);
++int merge_splits();
++int eval_tree(ParseTree *, char []);
++int get_new_index(struct indices *, int);
++int get_index_type(char [], int *, int  *, int *, char []);
++int get_array_of_lines(char *, char **[], int, int);
++int initialize_disable_list(int);
++int destroy_data_structures();
++int oldpartition(int, char **);
++int purge_index();
++int dump_mini(char *);
++int exec(int, char **);
++int exponen(int);
++int extract_info(char *, char*, int, int, char *, int);
++int fsize(char *, char **, int *, int, char **, int *, int, int);
++int file_out(char *);
++int fileagrep(int, char *[], int, void *);
++int fileagrep_init(int, char *[], int, char *);
++int fileagrep_search(int, char *, int, char **, int , void *);
++int fill_buf(int, unsigned char *,int);
++int filter_output(char *, char *, ParseTree *, CHAR [], int, int, FILE *,int);
++int filetype(char *, int, int *, char []);
++int get_block_numbers(unsigned char *, unsigned char *, FILE *);
++int get_filenames(int *, int, char *[], int, CHAR [], int);
++int get_filename_index(char *);
++int get_mini(unsigned char *, int, long *, long *, int, int, FILE *);
++int get_table(char *, int table[], int, int);
++int hash4k(char *, int);
++int hash64k(char *, int);
++int hash256k(char *, int);
++int heavy_index(char *, char *, int);
++int hqx(char *, char*, int);
++int init_filename_hashtable();
++int initialize_common(char *,int);
++int initialize_data_structures(int);
++int initialize_tcompress(char *, char *, int);
++int initialize_tuncompress(char *, char *, int);
++int init(char *, int [32][32]);
++int mask_filenames(int *, char *, int, int);
++int maskgen(unsigned char *,int);
++int memagrep(int, char *[], int, char*, int, void *);
++int memagrep_init(int, char *[], int, char *);
++int memagrep_search(int, char *, int, char*, int, void *);
++int memlook(const unsigned char *, const unsigned char *, int);
++int mgrep(int);
++int my_stat(char *, struct stat *);
++int my_lstat(char *,  struct stat *);
++int myfpcopy(FILE *, char *);
++int mystrcpy(char *, char *);
++int output(register CHAR *, int, int, int);
++int pad_hash_file(unsigned char *, int);
++int pad_string_file(unsigned char *, int);
++int partition(int, char **);
++int prepf(int, unsigned char *, int);
++int preprocess(CHAR [], CHAR []);
++int process_query(int, char *[], int);
++int quick_tcompress(char *, char *, CHAR *, int, void *, int , int);
++int r_output (CHAR *, int, int, int);
++int re(int, int, int);
++int re1(int, int, int);
++int read_filenames();
++int remove_filename(int, int);
++int change_filename(char *, int, int, char *);
++int insert_filename(char *, int);
++int read_filters(char *, int);
++int read_mini(FILE *, FILE *);
++int recursive(int, char **);
++int region_create(char *);
++int region_destroy();
++int region_identify(int, int);
++int region_initialize();
++int save_data_structures();
++int search_index(ParseTree *);
++int set_indexable_char(int []);
++int set_special_char(int []);
++int sgrep(unsigned char *, int, int, int, int);
++int slow_mask_filenames(int *, char *);
++int split_pattern(CHAR *, int, CHAR *, ParseTree [], int *, ParseTree **, int);
++int split_terminal(int, int);
++int tbuild_hash(hash_entry *[], FILE *,int);
++int tcompress(void *, int, void *, int, int);
++int tcompress_file(char *, char *, int);
++int test_binary(unsigned char *, int);
++int test_postscript(unsigned char *, int);
++int test_special_suffix(char *);
++int test_uuencode(unsigned char *, int);
++int tmemlook(char *, char *, int);
++int indicesallfree();
++int tokenallfree();
++int wordallfree();
++int ttest_binary(unsigned char *, int);
++int ttest_postscript(unsigned char *, int);
++int ttest_uuencode(unsigned char *, int);
++int tuncompress(void *, int, void *, int, int);
++int tuncompress_file(char *, char *, int);
++int tuncompressible();
++int tuncompressible_filename(char *, int);
++void destroy_tree(ParseTree *);
++void uninitialize_common();
++void uninitialize_tcompress();
++void uninitialize_tuncompress();
++
++#endif /* _MISSING_PROTOTYPES_H */
