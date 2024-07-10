@@ -230,6 +230,24 @@
  	for (k=0; k<GNumfiles; k++) {\
  		my_free(GTextfiles[k], 0);\
  		GTextfiles[k] = NULL;\
+@@ -3478,7 +3480,7 @@ unlink_and_quit:
+ 	}
+ }
+ 
+-usage()
++int usage()
+ {
+ 	fprintf(stderr, "\nThis is glimpse version %s, %s.\n\n", GLIMPSE_VERSION, GLIMPSE_DATE);
+ 	fprintf(stderr, "usage:  %s [-#abceghijklnprstwxyBCDEGIMNPQSVWZ] [-d DEL] [-f FILE] [-F PAT] [-H DIR] [-J HOST] [-K PORT] [-L X[:Y:Z]] [-R X] [-T DIR] [-Y D] pattern [files]", GProgname);
+@@ -3558,7 +3560,7 @@ usage()
+  */
+ }
+ 
+-usageS()
++int usageS()
+ {
+ 	fprintf(stderr, "\nThis is glimpse server version %s, %s.\n\n", GLIMPSE_VERSION, GLIMPSE_DATE);
+ 	fprintf(stderr, "usage:  %s [-H DIR] [-J HOST] [-K PORT]", GProgname);
 --- a/index/dir.c
 +++ b/index/dir.c
 @@ -44,6 +44,9 @@
@@ -301,6 +319,15 @@
  extern char **environ;
  extern int errno;
  extern FILE *TIMEFILE;	/* file descriptor for sorting .glimpse_filenames by time */
+@@ -86,7 +91,7 @@ extern struct indices	*deletedlist;
+ extern char sync_path[MAX_LINE_LEN];
+ extern int ATLEASTONEFILE;
+ 
+-extern set_usemalloc();	/* compress/misc.c */
++extern int set_usemalloc();	/* compress/misc.c */
+ 
+ char IProgname[MAX_LINE_LEN];
+ int ModifyFilenamesIndex = 0;
 @@ -190,7 +195,7 @@ char **argv;
      memset(size_list, '\0', sizeof(int *) * MAXNUM_INDIRECT);	/* free it once partition successfully calculates p_size_list */
      memset(name_list, '\0', sizeof(char **) * MAXNUM_INDIRECT);
@@ -353,6 +380,24 @@
  	for (k=0; k<GNumfiles; k++) {\
  		my_free(GTextfiles[k], 0);\
  		GTextfiles[k] = NULL;\
+@@ -3478,7 +3482,7 @@ unlink_and_quit:
+ 	}
+ }
+ 
+-usage()
++int usage()
+ {
+ 	fprintf(stderr, "\nThis is glimpse version %s, %s.\n\n", GLIMPSE_VERSION, GLIMPSE_DATE);
+ 	fprintf(stderr, "usage:  %s [-#abceghijklnprstwxyBCDEGIMNPQSVWZ] [-d DEL] [-f FILE] [-F PAT] [-H DIR] [-J HOST] [-K PORT] [-L X[:Y:Z]] [-R X] [-T DIR] [-Y D] pattern [files]", GProgname);
+@@ -3558,7 +3562,7 @@ usage()
+  */
+ }
+ 
+-usageS()
++int usageS()
+ {
+ 	fprintf(stderr, "\nThis is glimpse server version %s, %s.\n\n", GLIMPSE_VERSION, GLIMPSE_DATE);
+ 	fprintf(stderr, "usage:  %s [-H DIR] [-J HOST] [-K PORT]", GProgname);
 --- a/agrep/dummysyscalls.c
 +++ b/agrep/dummysyscalls.c
 @@ -1,6 +1,9 @@
@@ -858,3 +903,20 @@
 +void uninitialize_tuncompress();
 +
 +#endif /* _MISSING_PROTOTYPES_H */
+--- a/compress/misc.c
++++ b/compress/misc.c
+@@ -31,12 +31,12 @@ hash_entry freq_words_table[MAX_WORD_LEN
+ char freq_words_strings[256][MAX_WORD_LEN+2];
+ int freq_words_lens[256];
+ 
+-set_usemalloc()
++int set_usemalloc()
+ {
+ 	usemalloc = 1;
+ }
+ 
+-unset_usemalloc()
++int unset_usemalloc()
+ {
+ 	usemalloc = 0;
+ }
