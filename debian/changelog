@@ -1,3 +1,9 @@
+glimpse (4.18.7-10) unstable; urgency=high
+
+  * adjust control for dpkg rootless (closes: #1089339)
+
+ -- Alexander Zangerl <az@debian.org>  Sun, 08 Dec 2024 11:14:30 +1000
+
 glimpse (4.18.7-9) unstable; urgency=medium
 
   * this pile of medieval c requires help to survive gcc14 (closes: #1075010)
