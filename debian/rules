@@ -6,7 +6,7 @@ TARGETDIR=`pwd`/debian/glimpse
 
 # it's a hopeless endeavour to port
 # all this messy ancient k&r code to c99
-CFLAGS=-std=gnu89 -fpermissive
+export DEB_CFLAGS_MAINT_APPEND = -std=gnu89 -fpermissive
 
 override_dh_auto_configure:
 	autoconf

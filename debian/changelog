@@ -1,3 +1,15 @@
+glimpse (4.18.7-12) unstable; urgency=medium
+
+  * adjusted makefile (closes: #1119431)
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 22 Dec 2025 13:34:58 +1000
+
+glimpse (4.18.7-11) unstable; urgency=medium
+
+  * adjusted makefile to survive make --shuffle (closes: #1105364)
+
+ -- Alexander Zangerl <az@debian.org>  Thu, 14 Aug 2025 16:08:33 +1000
+
 glimpse (4.18.7-10) unstable; urgency=high
 
   * adjust control for dpkg rootless (closes: #1089339)

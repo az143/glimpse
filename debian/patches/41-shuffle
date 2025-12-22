@@ -1,0 +1,26 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -107,12 +107,12 @@ install: all installdirs install-man
+ 		$(INSTALL) $$d $(bindir) ; \
+ 	done
+ 
+-install-man:
++install-man: installdirs
+ 	for d in $(MANUAL) ; do \
+ 		$(INSTALL_MAN) $$d $(mandir) ; \
+ 	done
+ 
+-installdirs:	mkinstalldirs
++installdirs: mkinstalldirs
+ 	$(srcdir)/mkinstalldirs $(bindir) $(mandir)
+ 
+ clean:
+@@ -129,6 +129,8 @@ distclean: clean
+ 	done
+ 	rm -f Makefile config.cache config.status
+ 
++$(LIBDIR)/lib$(LIBAGREP).a $(LIBDIR)/lib$(LIBCOMPRESS).a $(LIBTEMPLATEDIR)/lib$(LIBTEMPLATE).a $(LIBTEMPLATEDIR)/lib$(LIBUTIL).a: build-sub
++
+ $(PROG):	main.o $(OBJS) $(SRC) $(HDRS) $(LIBDIR)/lib$(LIBAGREP).a $(LIBTEMPLATEDIR)/lib$(LIBTEMPLATE).a $(LIBTEMPLATEDIR)/lib$(LIBUTIL).a $(LIBDIR)/lib$(LIBCOMPRESS).a
+ 	$(CC) $(LDFLAGS) -L$(LIBDIR) -L$(LIBTEMPLATEDIR) -o $(BINDIR)/$(PROG) main.o $(OBJS) -l$(LIBAGREP) -l$(LIBTEMPLATE) -l$(LIBUTIL) $(LIBS)
+ 
