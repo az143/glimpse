@@ -8,6 +8,230 @@ Author: Alexander Zangerl <az@debian.org>
  .SH NAME
  agrep \- search a file for a string or regular expression, with approximate matching capabilities
  .SH SYNOPSIS
+@@ -6,41 +6,41 @@ agrep \- search a file for a string or r
+ [
+ .B \-#cdehiklnpstvwxBDGIS
+ ]
+-.I pattern 
++.I pattern
+ [ -f
+-.I patternfile 
++.I patternfile
+ ]
+ [
+-.IR filename ".\|.\|. ]" 
++.IR filename ".\|.\|. ]"
+ .SH DESCRIPTION
+ .B agrep
+ searches the input
+ .IR filenames
+-(standard input is the default, but see a warning under LIMITATIONS) 
+-for records containing strings which either 
+-\fIexactly\fP or \fIapproximately\fP match a pattern.  
++(standard input is the default, but see a warning under LIMITATIONS)
++for records containing strings which either
++\fIexactly\fP or \fIapproximately\fP match a pattern.
+ A record is by default a line, but it can be defined differently using
+ the -d option (see below).
+ Normally, each record found is copied to the standard output.
+-Approximate matching allows finding records that contain the pattern 
++Approximate matching allows finding records that contain the pattern
+ with several errors including substitutions, insertions, and
+ deletions.
+ For example, Massechusets matches Massachusetts with two errors
+-(one substitution and one insertion).  Running 
++(one substitution and one insertion).  Running
+ .B agrep
+ -2 Massechusets foo outputs all lines in foo containing any string with
+ at most 2 errors from Massechusets.
+ .LP
+-.B agrep 
+-supports many kinds of queries including 
++.B agrep
++supports many kinds of queries including
+ arbitrary wild cards, sets of patterns, and in general,
+ regular expressions.
+ See PATTERNS below.
+-It supports most of the options supported by the 
++It supports most of the options supported by the
+ .B grep
+ family plus several more (but it is not 100% compatible with grep).
+ For more information on the algorithms used by agrep see
+-Wu and Manber, 
++Wu and Manber,
+ "Fast Text Searching With Errors,"
+ Technical report #91-11, Department of Computer Science, University
+ of Arizona, June 1991 (available by anonymous ftp from cs.arizona.edu
+@@ -118,9 +118,9 @@ begins with a
+ .RB ` \- '.
+ .TP
+ .BI \-f " patternfile"
+-.I patternfile 
++.I patternfile
+ contains a set of (simple) patterns.
+-The output is all lines that match at least one of the patterns in 
++The output is all lines that match at least one of the patterns in
+ .I patternfile.
+ Currently, the \-f option works only for exact match and for simple
+ patterns (any meta symbol is interpreted as a regular character);
+@@ -134,8 +134,8 @@ Do not display filenames.
+ Case-insensitive search \(em e.g., "A" and "a" are considered equivalent.
+ .TP
+ .B \-k
+-No symbol in the pattern is treated as a meta character. 
+-For example, agrep -k 'a(b|c)*d' foo will find  
++No symbol in the pattern is treated as a meta character.
++For example, agrep -k 'a(b|c)*d' foo will find
+ the occurrences of a(b|c)*d in foo whereas agrep 'a(b|c)*d' foo
+ will find substrings in foo that match the regular expression 'a(b|c)*d'.
+ .TP
+@@ -154,16 +154,16 @@ For example,
+ \fB agrep \-p DCS foo
+ will match "Department of Computer Science."
+ .TP
+-.B \-s   
++.B \-s
+ Work silently, that is, display nothing except error messages.
+ This is useful for checking the error status.
+ .TP
+-.B \-t   
+-Output the record starting from the end of 
++.B \-t
++Output the record starting from the end of
+ .I delim
+ to (and including) the next
+ .I delim.
+-This is useful for cases where 
++This is useful for cases where
+ .I delim
+ should come at the end of the record.
+ .TP
+@@ -174,10 +174,10 @@ contain the pattern.
+ .TP
+ .B \-w
+ Search for the pattern as a word \(em i.e., surrounded by non-alphanumeric
+-characters.  The non-alphanumeric 
++characters.  The non-alphanumeric
+ .B must
+ surround the match;  they cannot be counted as errors.
+-For example, 
++For example,
+ .B agrep
+ -w -1 car will match cars, but not characters.
+ .TP
+@@ -185,7 +185,7 @@ For example,
+ The pattern must match the whole line.
+ .TP
+ .B \-y
+-Used with \-B option. When \-y is on, agrep will always 
++Used with \-B option. When \-y is on, agrep will always
+ output the best matches without giving a prompt.
+ .TP
+ .B \-B
+@@ -217,9 +217,9 @@ This option does not currently work with
+ .ne 4
+ .SH PATTERNS
+ .LP
+-\fIagrep\fP 
++\fIagrep\fP
+ supports a large variety of patterns, including simple
+-strings, strings with classes of characters, sets of strings, 
++strings, strings with classes of characters, sets of strings,
+ wild cards, and regular expressions.
+ .TP
+ \fBStrings\fP
+@@ -254,19 +254,19 @@ The symbol `.' (don't care) stands for a
+ newline symbol).
+ .TP
+ \fBBoolean operations\fP
+-.B agrep 
+-supports an `and' operation `;' 
++.B agrep
++supports an `and' operation `;'
+ and an `or' operation `,',
+ but not a combination of both.  For example, 'fast;network' searches
+ for all records containing both words.
+ .TP
+ \fBWild cards\fP
+ The symbol '#' is used to denote a wild card.  # matches zero or any
+-number of arbitrary characters.  For example, 
++number of arbitrary characters.  For example,
+ ex#e matches example.  The symbol # is equivalent to .* in egrep.
+ In fact, .* will work too, because it is a valid regular expression
+ (see below), but unless this is part of an actual regular expression,
+-# will work faster. 
++# will work faster.
+ .TP
+ \fBCombination of exact and approximate matching\fP
+ any pattern inside angle brackets <> must match the text exactly even
+@@ -282,14 +282,14 @@ and parentheses () are all supported.
+ Currently '+' is not supported.
+ Regular expressions are currently limited to approximately 30
+ characters (generally excluding meta characters).  Some options
+-(\-d, \-w, \-f, \-t, \-x, \-D, \-I, \-S) do not 
++(\-d, \-w, \-f, \-t, \-x, \-D, \-I, \-S) do not
+ currently work with regular expressions.
+ The maximal number of errors for regular expressions that use '*'
+ or '|' is 4.
+ .SH EXAMPLES
+ .LP
+ .TP
+-agrep -2 -c ABCDEFG foo 
++agrep -2 -c ABCDEFG foo
+ gives the number of lines in file foo that contain ABCDEFG
+ within two errors.
+ .TP
+@@ -302,7 +302,7 @@ agrep -5 -p abcdefghij /usr/dict/words
+ outputs the list of all words containing at least 5 of the first 10
+ letters of the alphabet \fIin order\fR.  (Try it:  any list starting
+ with academia and ending with sacrilegious must mean something!)
+-.TP 
++.TP
+ agrep -1 'abc[0-9](de|fg)*[x-z]' foo
+ outputs the lines containing, within up to one error, the string
+ that starts with abc followed by one digit, followed by zero or more
+@@ -314,7 +314,7 @@ in a mail file) that contain keywords 'b
+ .TP
+ agrep -d '$$' -1 '<word1> <word2>' foo
+ finds all paragraphs that contain word1 followed by word2 with one
+-error in place of the blank.  
++error in place of the blank.
+ In particular, if word1 is the last word in a line and word2
+ is the first word in the next line, then the space will be
+ substituted by a newline symbol and it will match.
+@@ -333,7 +333,7 @@ outputs all the examples of the use of a
+ .BR sh (1),
+ .BR csh (1).
+ .SH BUGS/LIMITATIONS
+-Any bug reports or comments will be appreciated! 
++Any bug reports or comments will be appreciated!
+ Please mail them to sw@cs.arizona.edu or udi@cs.arizona.edu
+ .LP
+ Regular expressions do not support the '+' operator (match 1 or more
+@@ -356,7 +356,7 @@ the pattern within output_file (the matc
+ directory).  It's not clear whether this is a "bug" (grep will do the
+ same), but be warned.
+ .LP
+-The maximum size of the 
++The maximum size of the
+ .I patternfile
+ is limited to be 250Kb, and the maximum number of patterns
+ is limited to be 30,000.
+@@ -370,7 +370,7 @@ More complicated patterns are currently
+ Lines are limited to 1024 characters.
+ Records are limited to 48K, and may be truncated if they are larger
+ than that.
+-The limit of record length can be 
++The limit of record length can be
+ changed by modifying the parameter Max_record in agrep.h.
+ .SH DIAGNOSTICS
+ Exit status is 0 if any matches are found,
+@@ -378,5 +378,3 @@ Exit status is 0 if any matches are foun
+ .SH AUTHORS
+ Sun Wu and Udi Manber, Department of Computer Science, University of
+ Arizona, Tucson, AZ 85721.  {sw|udi}@cs.arizona.edu.
+-
+-
 --- a/glimpse.1
 +++ b/glimpse.1
 @@ -1,6 +1,6 @@
@@ -30,6 +254,22 @@ Author: Alexander Zangerl <az@debian.org>
  .SH OVERVIEW
  \fIGlimpse\fP (which stands for GLobal IMPlicit SEarch)
  is a very popular UNIX indexing and query system that allows
+@@ -39,7 +39,7 @@ directory and everything below it (see a
+ it is used only when glimpse reverts to agrep.
+ .LP
+ Mail majordomo@webglimpse.net with SUBSCRIBE wgusers in the body to be added
+-to the Webglimpse users mailing list.  This is now the location where glimpse 
++to the Webglimpse users mailing list.  This is now the location where glimpse
+ questions are also discussed.
+ Bugs can be reported at http://webglimpse.net/bugzilla/
+ HTML version of these manual pages
+@@ -958,5 +958,5 @@ Exit status is 0 if any matches are foun
+ .SH AUTHORS
+ Udi Manber and Burra Gopal, Department of Computer Science,
+ University of Arizona, and Sun Wu, the National Chung-Cheng University,
+-Taiwan. Now maintained by Golda Velez at Internet WorkShop 
++Taiwan. Now maintained by Golda Velez at Internet WorkShop
+ (Email:  gvelez@webglimpse.net)
 --- a/glimpse/glimpseindex.1
 +++ b/glimpse/glimpseindex.1
 @@ -1,6 +1,6 @@
@@ -43,15 +283,59 @@ Author: Alexander Zangerl <az@debian.org>
  is a popular UNIX indexing and query system that allows you to search through
 --- a/glimpse/glimpseserver.1
 +++ b/glimpse/glimpseserver.1
-@@ -1,6 +1,6 @@
+@@ -1,12 +1,12 @@
 -.TH GLIMPSESERVER l "October 13, 1997"
 +.TH GLIMPSESERVER 1 "October 13, 1997"
  .SH NAME
 -\fIglimpseserver 4.1\fP - a server version of the glimpse searching package.
 +glimpseserver \- a server version of the glimpse searching package.
  .SH OVERVIEW
- \fIGlimpse\fP 
+-\fIGlimpse\fP 
++\fIGlimpse\fP
  is an indexing and query system that allows you to search through
+ all your files very quickly.
+ The use of glimpse in servers that handle frequent queries
+-is growing, which is why we wrote glimpseserver to 
++is growing, which is why we wrote glimpseserver to
+ make searches more efficient.
+ Glimpseserver starts a process that listens to queries, runs glimpse,
+ and sends the answers back.
+@@ -23,7 +23,7 @@ See the warning about security below.
+ .SH "DESCRIPTION"
+ .LP
+ .TP
+-.B \-H \fIdir\fP 
++.B \-H \fIdir\fP
+ specifies the directory of the index.  Similar to the \-H option
+ of glimpse.
+ The default directory is the value of the environment variable $HOME
+@@ -32,7 +32,7 @@ if that is set, otherwise it is the curr
+ .B \-K \fIport\fP
+ this is the TCP port for communication: glimpseserver waits for requests
+ on this port and clients that want to search using the index in
+-specified by the \-H option must use this port (by calling 
++specified by the \-H option must use this port (by calling
+ glimpse -K).
+ The defaults port number is 2001.
+ .TP
+@@ -45,7 +45,7 @@ If a new index is created by running gli
+ restarting a new glimpseserver is now easier:
+ simply send a SIGUSR2 (signal #31 - i.e., "kill -31 pid") to
+ glimpseserver; it then re-reads the NEW index and is ready to serve
+-requests again. 
++requests again.
+ (A SIGHUP, i.e., signal #1, can also be sent instead of SIGUSR2
+ to make the glimpseserver re-read the new index.)
+ The recommended way to do a fresh indexing while the
+@@ -81,7 +81,7 @@ Glimpseserver is meant to be used for pu
+ .LP
+ Please submit bug reports or comments at http://webglimpse.net/bugzilla/
+ .SH AUTHORS
+-Udi Manber and Burra Gopal, Department of Computer Science, 
++Udi Manber and Burra Gopal, Department of Computer Science,
+ University of Arizona, and Sun Wu, the National Chung-Cheng University,
+ Taiwan. Now maintained by Golda Velez at Internet WorkShop
+ (Email:  gvelez@webglimpse.net)
 --- a/glimpseindex.1
 +++ b/glimpseindex.1
 @@ -1,6 +1,6 @@
@@ -65,12 +349,56 @@ Author: Alexander Zangerl <az@debian.org>
  is a popular UNIX indexing and query system that allows you to search through
 --- a/glimpseserver.1
 +++ b/glimpseserver.1
-@@ -1,6 +1,6 @@
+@@ -1,12 +1,12 @@
 -.TH GLIMPSESERVER l "October 13, 1997"
 +.TH GLIMPSESERVER 1 "October 13, 1997"
  .SH NAME
 -\fIglimpseserver 4.1\fP - a server version of the glimpse searching package.
 +glimpseserver \- a server version of the glimpse searching package.
  .SH OVERVIEW
- \fIGlimpse\fP 
+-\fIGlimpse\fP 
++\fIGlimpse\fP
  is an indexing and query system that allows you to search through
+ all your files very quickly.
+ The use of glimpse in servers that handle frequent queries
+-is growing, which is why we wrote glimpseserver to 
++is growing, which is why we wrote glimpseserver to
+ make searches more efficient.
+ Glimpseserver starts a process that listens to queries, runs glimpse,
+ and sends the answers back.
+@@ -23,7 +23,7 @@ See the warning about security below.
+ .SH "DESCRIPTION"
+ .LP
+ .TP
+-.B \-H \fIdir\fP 
++.B \-H \fIdir\fP
+ specifies the directory of the index.  Similar to the \-H option
+ of glimpse.
+ The default directory is the value of the environment variable $HOME
+@@ -32,7 +32,7 @@ if that is set, otherwise it is the curr
+ .B \-K \fIport\fP
+ this is the TCP port for communication: glimpseserver waits for requests
+ on this port and clients that want to search using the index in
+-specified by the \-H option must use this port (by calling 
++specified by the \-H option must use this port (by calling
+ glimpse -K).
+ The defaults port number is 2001.
+ .TP
+@@ -45,7 +45,7 @@ If a new index is created by running gli
+ restarting a new glimpseserver is now easier:
+ simply send a SIGUSR2 (signal #31 - i.e., "kill -31 pid") to
+ glimpseserver; it then re-reads the NEW index and is ready to serve
+-requests again. 
++requests again.
+ (A SIGHUP, i.e., signal #1, can also be sent instead of SIGUSR2
+ to make the glimpseserver re-read the new index.)
+ The recommended way to do a fresh indexing while the
+@@ -81,7 +81,7 @@ Glimpseserver is meant to be used for pu
+ .LP
+ Please submit bug reports or comments at http://webglimpse.net/bugzilla/
+ .SH AUTHORS
+-Udi Manber and Burra Gopal, Department of Computer Science, 
++Udi Manber and Burra Gopal, Department of Computer Science,
+ University of Arizona, and Sun Wu, the National Chung-Cheng University,
+ Taiwan. Now maintained by Golda Velez at Internet WorkShop
+ (Email:  gvelez@webglimpse.net)

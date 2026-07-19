@@ -6,30 +6,30 @@ Subject: Fix hyphes in manpage
 @@ -7,7 +7,7 @@ agrep \- search a file for a string or r
  .B \-#cdehiklnpstvwxBDGIS
  ]
- .I pattern 
+ .I pattern
 -[ -f
 +[ \-f
- .I patternfile 
+ .I patternfile
  ]
  [
 @@ -20,7 +20,7 @@ searches the input
- for records containing strings which either 
- \fIexactly\fP or \fIapproximately\fP match a pattern.  
+ for records containing strings which either
+ \fIexactly\fP or \fIapproximately\fP match a pattern.
  A record is by default a line, but it can be defined differently using
 -the -d option (see below).
 +the \-d option (see below).
  Normally, each record found is copied to the standard output.
- Approximate matching allows finding records that contain the pattern 
+ Approximate matching allows finding records that contain the pattern
  with several errors including substitutions, insertions, and
 @@ -28,7 +28,7 @@ deletions.
  For example, Massechusets matches Massachusetts with two errors
- (one substitution and one insertion).  Running 
+ (one substitution and one insertion).  Running
  .B agrep
 --2 Massechusets foo outputs all lines in foo containing any string with
 +\-2 Massechusets foo outputs all lines in foo containing any string with
  at most 2 errors from Massechusets.
  .LP
- .B agrep 
+ .B agrep
 @@ -89,7 +89,7 @@ specifying the maximum number of errors
  permitted in finding the approximate matches (defaults to zero).
  Generally, each insertion, deletion, or substitution counts as one error.
@@ -51,9 +51,9 @@ Subject: Fix hyphes in manpage
 @@ -135,14 +135,14 @@ Case-insensitive search \(em e.g., "A" a
  .TP
  .B \-k
- No symbol in the pattern is treated as a meta character. 
--For example, agrep -k 'a(b|c)*d' foo will find  
-+For example, agrep \-k 'a(b|c)*d' foo will find  
+ No symbol in the pattern is treated as a meta character.
+-For example, agrep -k 'a(b|c)*d' foo will find
++For example, agrep \-k 'a(b|c)*d' foo will find
  the occurrences of a(b|c)*d in foo whereas agrep 'a(b|c)*d' foo
  will find substrings in foo that match the regular expression 'a(b|c)*d'.
  .TP
@@ -67,7 +67,7 @@ Subject: Fix hyphes in manpage
  .B \-n
 @@ -179,7 +179,7 @@ characters.  The non-alphanumeric
  surround the match;  they cannot be counted as errors.
- For example, 
+ For example,
  .B agrep
 --w -1 car will match cars, but not characters.
 +\-w \-1 car will match cars, but not characters.
@@ -78,8 +78,8 @@ Subject: Fix hyphes in manpage
  .SH EXAMPLES
  .LP
  .TP
--agrep -2 -c ABCDEFG foo 
-+agrep \-2 \-c ABCDEFG foo 
+-agrep -2 -c ABCDEFG foo
++agrep \-2 \-c ABCDEFG foo
  gives the number of lines in file foo that contain ABCDEFG
  within two errors.
  .TP
@@ -95,7 +95,7 @@ Subject: Fix hyphes in manpage
  outputs the list of all words containing at least 5 of the first 10
  letters of the alphabet \fIin order\fR.  (Try it:  any list starting
  with academia and ending with sacrilegious must mean something!)
- .TP 
+ .TP
 -agrep -1 'abc[0-9](de|fg)*[x-z]' foo
 +agrep \-1 'abc[0-9](de|fg)*[x-z]' foo
  outputs the lines containing, within up to one error, the string
@@ -110,7 +110,7 @@ Subject: Fix hyphes in manpage
 -agrep -d '$$' -1 '<word1> <word2>' foo
 +agrep \-d '$$' \-1 '<word1> <word2>' foo
  finds all paragraphs that contain word1 followed by word2 with one
- error in place of the blank.  
+ error in place of the blank.
  In particular, if word1 is the last word in a line and word2
  is the first word in the next line, then the space will be
  substituted by a newline symbol and it will match.

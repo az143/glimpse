@@ -1,3 +1,13 @@
+glimpse (4.18.7-13) unstable; urgency=medium
+
+  * cleaned up some trailing whitespace in manpages
+  * hackily fixed up agrep.c and bitap.c to handle input lines that
+    cross a read record boundary more or less correctly (closes: #1141238)
+    the agrep code is an abysmal mess and i'm definitely not rewriting this,
+    so YMMV.
+
+ -- Alexander Zangerl <az@debian.org>  Sun, 19 Jul 2026 14:05:39 +1000
+
 glimpse (4.18.7-12) unstable; urgency=medium
 
   * adjusted makefile (closes: #1119431)

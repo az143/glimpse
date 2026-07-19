@@ -5,6 +5,15 @@ Subject: Fix some typos in man pages.
 
 --- a/glimpse.1
 +++ b/glimpse.1
+@@ -39,7 +39,7 @@ directory and everything below it (see a
+ it is used only when glimpse reverts to agrep.
+ .LP
+ Mail majordomo@webglimpse.net with SUBSCRIBE wgusers in the body to be added
+-to the Webglimpse users mailing list.  This is now the location where glimpse 
++to the Webglimpse users mailing list.  This is now the location where glimpse
+ questions are also discussed.
+ Bugs can be reported at http://webglimpse.net/bugzilla/
+ HTML version of these manual pages
 @@ -433,7 +433,7 @@ If the file name is a directory name, th
  .B \-R \fIk\fP
  defines the maximum size (in bytes) of a record.
@@ -14,6 +23,15 @@ Subject: Fix some typos in man pages.
  up some searches.
  .TP
  .B \-s
+@@ -590,7 +590,7 @@ supports a large variety of patterns, in
+ strings, strings with classes of characters, sets of strings,
+ wild cards, and regular expressions (see LIMITATIONS).
+ .TP
+-\fBStrings   \fP
++\fBStrings\fP
+ Strings are any sequence of characters, including the special symbols
+ `^' for beginning of line and `$' for end of line.
+ The following special characters (
 @@ -897,7 +897,7 @@ and '*' (the Kleene closure).
  So, "glimpse ab.de" will match abcde, but "glimpse ab\\.de"
  will not, and "glimpse ab*de" will not match ab*de, but
@@ -23,6 +41,13 @@ Subject: Fix some typos in man pages.
  unless it appears between [] (in which case it denotes a range of
  characters).
  .LP
+@@ -958,5 +958,5 @@ Exit status is 0 if any matches are foun
+ .SH AUTHORS
+ Udi Manber and Burra Gopal, Department of Computer Science,
+ University of Arizona, and Sun Wu, the National Chung-Cheng University,
+-Taiwan. Now maintained by Golda Velez at Internet WorkShop 
++Taiwan. Now maintained by Golda Velez at Internet WorkShop
+ (Email:  gvelez@webglimpse.net)
 --- a/glimpseindex.1
 +++ b/glimpseindex.1
 @@ -259,7 +259,7 @@ in runtime, so changing them can be done
@@ -34,3 +59,8 @@ Subject: Fix some typos in man pages.
  .TP
  .B \-s
  supports structured queries.  This option was added to support the
+@@ -559,4 +559,3 @@ Udi Manber and Burra Gopal, Department o
+ University of Arizona, and Sun Wu, the National Chung-Cheng University,
+ Taiwan. Now maintained by Golda Velez at Internet WorkShop
+ (Email:  gvelez@webglimpse.net)
+-
